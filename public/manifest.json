@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Sevelte Browser Extension",
+  "description": "A template for creating browser extensions using Svelte, Tailwind CSS, TypeScript and Vite.",
+  "version": "0.0.1",
+  "author": "navorite",
+
+  "action": {
+    "default_title": "Svelte Browser Extension",
+    "default_popup": "./src/popup/index.html",
+    "default_icon": {
+      "48": "./icons/favicon.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "./src/options/index.html",
+    "open_in_tab": true
+  },
+
+  "permissions": [],
+
+  "icons": {
+    "48": "./icons/favicon.png"
+  }
+}
