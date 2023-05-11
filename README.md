@@ -7,13 +7,13 @@ A template for creating browser extensions using:
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
 
-|                          Firefox                          |                         Edge / Chromium                          |
-| :-------------------------------------------------------: | :--------------------------------------------------------------: |
-| ![Screenshot of the extension in Firefox](./showcase.png) | ![Screenshot of the extension in Edge/Chromium](./showcase2.png) |
+|                         Firefox                          |                         Chromium / Edge                         |
+| :------------------------------------------------------: | :-------------------------------------------------------------: |
+| ![Screenshot of the extension in Firefox](./firefox.png) | ![Screenshot of the extension in Edge/Chromium](./chromium.png) |
 
 ## Structure
 
-It has two entry-points / pages to create the Popup and the Options page:
+It has two entry-points to create `Popup` and `Options` pages:
 
 - `popup/index.html`
 - `options/index.html`
@@ -26,17 +26,16 @@ By default, when running the dev server, it will launch the `/src/popup/index.ht
 
 2. Run `pnpm install`
 
-3. Run `pnpm run dev` to start a dev server or `pnpm run build` to build for production.
+3. Run `pnpm run watch` to start a dev server with HMR or `pnpm run build` to build for production
 
 ## Setup
 
 ### Creating or removing pages
 
-1. Open the Vite config file `vite.config.ts`
-
-2. Find the build.input object
+1. Edit the build.input object inside Vite config
 
 ```
+   //vite.config.ts
    input: {
        popup: fileURLToPath(
          new URL('./src/popup/index.html', import.meta.url)
@@ -45,13 +44,13 @@ By default, when running the dev server, it will launch the `/src/popup/index.ht
          new URL('./src/options/index.html', import.meta.url)
        ),
      },
-   },
 ```
 
-3. Insert entry-point/page by inserting `entry-point: path-to-page` pair inside the object.
+2. Insert entry-point/page by inserting `entry-point: path-to-page` pair inside the object.
    Ex: Adding an about page:
 
 ```
+    //vite.config.ts
     input: {
         popup: fileURLToPath(
           new URL('./src/popup/index.html', import.meta.url)
@@ -63,22 +62,19 @@ By default, when running the dev server, it will launch the `/src/popup/index.ht
           new URL('./src/about/index.html', import.meta.url)
         ),
       },
-    },
 ```
 
 4. Create a `main.ts`, `index.html` and - optionally - `about.svelte` file in the `src/about` folder for the page similar to how it is done in `src/popup` folder and `src/options` folder.
 
----
-
 ### Creating or removing path aliases
 
-1. Open the Vite config file `vite.config.ts`
+1. Open `vite.config.ts`
 
-2. Insert a path alias in resolve.alias obj using `'alias': resolve-relative-path-to-alias` key-value pair. Ex: `'@types': fileURLToPath(new URL('./src/lib/types', import.meta.url))`
+2. Insert a path alias in resolve.alias obj using `'alias': resolve-relative-path-to-alias` key-value pair. Ex: `'$types': fileURLToPath(new URL('./src/lib/types', import.meta.url))`
 
-3. Open `tsconfig.json` and add the alias contents there as well. Ex: for `@types` alias add `"@types/*": ["./src/lib/types/*"],` to the paths obj. This step is not required, it is only to let JS / TS know about the alias to stop showing errors.
+3. Open `tsconfig.json` and add the alias contents there as well. Ex: for `@types` alias add `"$types/*": ["./src/lib/types/*"],` to the paths obj. This step is not required, it is only to let JS / TS know about the alias to stop showing errors.
 
----
+Note: @types won't work, as tsconfig.ts uses this alias inside node_modules/@types
 
 ### Modifying dev server launch page
 
